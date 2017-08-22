@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Royale Proxy", "Royale Proxy\Royale Proxy.csproj", "{3B36BA01-E64E-4461-967A-534A939F944B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B36BA01-E64E-4461-967A-534A939F944B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B36BA01-E64E-4461-967A-534A939F944B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B36BA01-E64E-4461-967A-534A939F944B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B36BA01-E64E-4461-967A-534A939F944B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2EA1237-65DB-45CE-8284-7051BC82C325}
+	EndGlobalSection
+EndGlobal
