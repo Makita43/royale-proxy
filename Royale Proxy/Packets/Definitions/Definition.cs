@@ -17,10 +17,12 @@ namespace Royale_Proxy
             this.Add(10100, typeof(Session_Request));
             this.Add(10101, typeof(Login));
             this.Add(10107, typeof(Client_Capabilities));
+            this.Add(14102, typeof(End_Client_Turn));
             this.Add(14113, typeof(Visit_Home));
 
             this.Add(20100, typeof(Session_Success));
             this.Add(20104, typeof(Login_OK));
+            this.Add(24113, typeof(Visited_Home_Data));
 
             Console.WriteLine($"Loaded {this.Count} definitions.");
         }

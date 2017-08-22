@@ -67,9 +67,11 @@
     <Compile Include="Core\Key.cs" />
     <Compile Include="Packets\Definitions\Types\Client\Login.cs" />
     <Compile Include="Packets\Definitions\Types\Client\Client_Capabilities.cs" />
+    <Compile Include="Packets\Definitions\Types\Client\End_Client_Turn.cs" />
     <Compile Include="Packets\Definitions\Types\Client\Visit_Home.cs" />
     <Compile Include="Packets\Definitions\Types\Client\Session_Request.cs" />
     <Compile Include="Packets\Definitions\Types\Server\Login_OK.cs" />
+    <Compile Include="Packets\Definitions\Types\Server\Visited_Home_Data.cs" />
     <Compile Include="Packets\Definitions\Types\Server\Session_Success.cs" />
     <Compile Include="Packets\Definitions\Types\Type.cs" />
     <Compile Include="Packets\Enums\LogType.cs" />

@@ -76,5 +76,82 @@ namespace Royale_Proxy
 
             return _LR;
         }
+
+        public static long ReadVInt64(this BinaryReader br)
+        {
+            byte temp = br.ReadByte();
+            long i = 0;
+            int Sign = (temp >> 6) & 1;
+            i = temp & 0x3FL;
+
+            while (true)
+            {
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << 6;
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7 + 7 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7 + 7 + 7 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7 + 7 + 7 + 7 + 7);
+
+                if ((temp & 0x80) == 0)
+                {
+                    break;
+                }
+
+                temp = br.ReadByte();
+                i |= (temp & 0x7FL) << (6 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
+            }
+            i ^= -Sign;
+            return i;
+        }
     }
 }
