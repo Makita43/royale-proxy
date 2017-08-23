@@ -14,7 +14,6 @@ namespace Royale_Proxy
 
         public Client(ServerState serverstate)
         {
-            this.State.ServerState = serverstate;
             this.State.ClientKey = this.clientKey;
             this.State.ServerKey = Key.OriginalPublicKey;
 
