@@ -16,7 +16,7 @@ namespace Royale_Proxy
 
         public static void Main(string[] args)
         {
-            Console.Title = "Royale Proxy | 1.0.0";
+            Console.Title = "Royale Proxy | 1.0.1";
 
             IntPtr Handle = GetConsoleWindow();
             ShowWindow(Handle, 3);
