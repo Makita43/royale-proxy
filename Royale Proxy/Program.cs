@@ -1,10 +1,11 @@
 ﻿// *******************************************************
-// Created at 22/08/2017
+// Created at 27/08/2017 - Last Edit at 27/08/2017
 // *******************************************************
 
 namespace Royale_Proxy
 {
     using System;
+    using System.Runtime.InteropServices;
 
     class Program
     {
@@ -16,6 +17,11 @@ namespace Royale_Proxy
         public static void Main(string[] args)
         {
             Console.Title = "Royale Proxy | 1.0.0";
+
+            IntPtr Handle = GetConsoleWindow();
+            ShowWindow(Handle, 3);
+            SetWindowLong(Handle, -20, (int)GetWindowLong(Handle, -20) ^ 0x80000);
+            SetLayeredWindowAttributes(Handle, 0, 227, 0x2);
 
             Console.WriteLine(
                 @"
@@ -36,5 +42,20 @@ namespace Royale_Proxy
 
             Console.ReadKey(true);
         }
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        internal static extern bool SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        internal static extern bool ShowWindow(IntPtr hWnd, int cmdShow);
     }
 }

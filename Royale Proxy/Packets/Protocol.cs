@@ -36,11 +36,11 @@ namespace Royale_Proxy
 
                             if (state.GetType() == typeof(ClientState))
                             {
-                                ClientCrypto.DecryptPacket(socket, (ClientState)state, state.Packet);
+                                ClientCrypto.DecryptPacket(state as ClientState, state.Packet);
                             }
                             else if (state.GetType() == typeof(ServerState))
                             {
-                                ServerCrypto.DecryptPacket(socket, (ServerState)state, state.Packet);
+                                ServerCrypto.DecryptPacket(state as ServerState, state.Packet);
                             }
 
                             state.Packet = new byte[0];

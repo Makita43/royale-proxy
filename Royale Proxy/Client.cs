@@ -12,7 +12,7 @@ namespace Royale_Proxy
         public readonly Socket Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public ClientState State = new ClientState();
 
-        public Client(ServerState serverstate)
+        public Client()
         {
             this.State.ClientKey = this.clientKey;
             this.State.ServerKey = Key.OriginalPublicKey;

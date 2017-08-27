@@ -1,5 +1,5 @@
 ﻿// *******************************************************
-// Created at 22/08/2017
+// Created at 27/08/2017 - Last Edit at 27/08/2017
 // *******************************************************
 
 namespace Royale_Proxy.Packets.Definitions.Types.Client
@@ -25,6 +25,10 @@ namespace Royale_Proxy.Packets.Definitions.Types.Client
             this.Json.Add("device", this.Reader.ReadString());
             this.Json.Add("advertisingGuid", this.Reader.ReadString());
             this.Json.Add("osVersion", this.Reader.ReadString());
+            this.Json.Add("isAndroid", this.Reader.ReadBoolean());
+            this.Json.Add("unknown", this.Reader.ReadString());
+            this.Json.Add("AndroidId", this.Reader.ReadString());
+            this.Json.Add("preferredDeviceLanguage", this.Reader.ReadString());
         }
     }
 }

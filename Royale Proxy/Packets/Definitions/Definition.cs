@@ -17,11 +17,14 @@ namespace Royale_Proxy
             this.Add(10100, typeof(Session_Request));
             this.Add(10101, typeof(Login));
             this.Add(10107, typeof(Client_Capabilities));
+            this.Add(10108, typeof(Keep_Alive));
             this.Add(14102, typeof(End_Client_Turn));
             this.Add(14113, typeof(Visit_Home));
 
             this.Add(20100, typeof(Session_Success));
             this.Add(20104, typeof(Login_OK));
+            this.Add(20108, typeof(Keep_Alive_OK));
+            this.Add(24112, typeof(UDP_Info));
             this.Add(24113, typeof(Visited_Home_Data));
 
             Console.WriteLine($"Loaded {this.Count} definitions.");
@@ -37,7 +40,7 @@ namespace Royale_Proxy
 
                     _Type.Decode();
 
-                    return JsonConvert.SerializeObject(_Type.Json, Formatting.Indented);
+                    return _Type.Json.Count == 0 ? string.Empty : JsonConvert.SerializeObject(_Type.Json, Formatting.Indented);
                 }
                 catch (Exception)
                 {
@@ -46,7 +49,7 @@ namespace Royale_Proxy
             }
             else
             {
-                return $"Definition for {ID} missing.";
+                return $"Missing definition for Packet {ID} [{Packet_Names.GetName(ID)}]";
             }
         }
     }

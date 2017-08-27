@@ -1,5 +1,5 @@
 ﻿// *******************************************************
-// Created at 22/08/2017
+// Created at 27/08/2017 - Last Edit at 27/08/2017
 // *******************************************************
 
 namespace Royale_Proxy.Packets.Definitions.Types.Client
@@ -20,12 +20,12 @@ namespace Royale_Proxy.Packets.Definitions.Types.Client
             this.Json.Add("checksum", this.Reader.ReadVInt());
 
             int Count = this.Reader.ReadVInt();
-          
+
             if (Count > 0)
             {
                 this.Json.Add("count", Count);
 
-                int CommandBytes = (int)(this.Reader.BaseStream.Length - this.Reader.BaseStream.Position) / Count - (2 * Count);
+                int CommandBytes = (int)(this.Reader.BaseStream.Length - this.Reader.BaseStream.Position) / Count - 2 * Count;
 
                 for (int _Index = 0; _Index < Count; _Index++)
                 {

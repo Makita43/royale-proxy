@@ -17,10 +17,7 @@ namespace Royale_Proxy
             this._Original = Console.Out;
         }
 
-        public override Encoding Encoding
-        {
-            get { return new ASCIIEncoding(); }
-        }
+        public override Encoding Encoding => new ASCIIEncoding();        
 
         public override void Write(string _Text)
         {

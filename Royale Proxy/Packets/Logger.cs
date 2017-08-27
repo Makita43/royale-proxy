@@ -22,7 +22,7 @@ namespace Royale_Proxy
             {
                 case LogType.PACKET:
                 {
-                    File.AppendAllText($"Packets/{name}.bin", value);
+                    File.WriteAllText($"Packets/{name}.bin", value);
 
                     break;
                 }

@@ -14,7 +14,7 @@ namespace Royale_Proxy
     {
         protected KeyPair clientKey = PublicKeyBox.GenerateKeyPair();
 
-        public static void DecryptPacket(Socket socket, ClientState state, byte[] packet)
+        public static void DecryptPacket(ClientState state, byte[] packet)
         {
             using (var reader = new Reader(packet))
             {
@@ -60,15 +60,15 @@ namespace Royale_Proxy
                     }
                 }
 
+                ServerCrypto.EncryptPacket(state.ServerState, ID, Version, plainText);
+
                 Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}, SERVER, {ID}] {Resources.Definition.Decode(new Reader(plainText), ID)}");
 
                 Logger.Write(BitConverter.ToString(plainText).Replace("-", string.Empty), $"{ID}_{Name}", LogType.PACKET);
-
-                ServerCrypto.EncryptPacket(state.ServerState.Socket, state.ServerState, ID, Version, plainText);
             }
         }
 
-        public static void EncryptPacket(Socket socket, ClientState state, int ID, int version, byte[] plainText)
+        public static void EncryptPacket(ClientState state, int ID, int version, byte[] plainText)
         {
             byte[] cipherText;
 
@@ -104,7 +104,7 @@ namespace Royale_Proxy
 
             byte[] packet = BitConverter.GetBytes(ID).Reverse().Skip(2).Concat(BitConverter.GetBytes(cipherText.Length).Reverse().Skip(1)).Concat(BitConverter.GetBytes(version).Reverse().Skip(2)).Concat(cipherText).ToArray();
 
-            socket.BeginSend(packet, 0, packet.Length, 0, SendCallback, state);
+            state.Socket.BeginSend(packet, 0, packet.Length, 0, SendCallback, state);
         }
     }
 }

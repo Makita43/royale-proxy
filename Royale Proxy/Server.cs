@@ -1,5 +1,5 @@
 ﻿// *******************************************************
-// Created at 22/08/2017
+// Created at 27/08/2017 - Last Edit at 27/08/2017
 // *******************************************************
 
 namespace Royale_Proxy
@@ -20,6 +20,8 @@ namespace Royale_Proxy
             try
             {
                 Listener.Bind(new IPEndPoint(IPAddress.Any, Program.Port));
+                Listener.SendBufferSize = 2048;
+                Listener.ReceiveBufferSize = 2048;
                 Listener.Listen(200);
 
                 Console.WriteLine($"Proxy is listening on {Listener.LocalEndPoint}.");
@@ -54,7 +56,7 @@ namespace Royale_Proxy
 
                 Console.WriteLine($"Accepted new client {socket.RemoteEndPoint}.");
 
-                var client = new Client(state);
+                var client = new Client();
                 client.State.ServerState = state;
                 state.ClientState = client.State;
 
