@@ -1,13 +1,8 @@
-// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+using System;
+using System.Linq;
 
 namespace Royale_Proxy
 {
-    using System;
-    using System.Linq;
-    using System.Net.Sockets;
-
     public class Protocol
     {
         public static void ReceiveCallback(IAsyncResult Result)
@@ -15,7 +10,7 @@ namespace Royale_Proxy
             try
             {
                 var state = Result.AsyncState as State;
-                Socket socket = state.Socket;
+                var socket = state.Socket;
 
                 int bytesAvailable, bytesNeeded, bytesRead = 0, bytesReceived = socket.EndReceive(Result);
 
@@ -25,29 +20,29 @@ namespace Royale_Proxy
 
                     if (bytesReceived > 0 && state.Packet.Length >= 7)
                     {
-                        int payloadLength = BitConverter.ToInt32(new byte[1].Concat(state.Packet.Skip(2).Take(3)).Reverse().ToArray(), 0);
+                        var payloadLength =
+                            BitConverter.ToInt32(new byte[1].Concat(state.Packet.Skip(2).Take(3)).Reverse().ToArray(),
+                                0);
 
                         bytesNeeded = payloadLength - (state.Packet.Length - 7);
                         if (bytesAvailable >= bytesNeeded)
                         {
-                            state.Packet = state.Packet.Concat(state.Buffer.Skip(bytesRead).Take(bytesNeeded)).ToArray();
+                            state.Packet = state.Packet.Concat(state.Buffer.Skip(bytesRead).Take(bytesNeeded))
+                                .ToArray();
                             bytesRead += bytesNeeded;
                             bytesAvailable -= bytesNeeded;
 
                             if (state.GetType() == typeof(ClientState))
-                            {
                                 ClientCrypto.DecryptPacket(state as ClientState, state.Packet);
-                            }
                             else if (state.GetType() == typeof(ServerState))
-                            {
                                 ServerCrypto.DecryptPacket(state as ServerState, state.Packet);
-                            }
 
                             state.Packet = new byte[0];
                         }
                         else
                         {
-                            state.Packet = state.Packet.Concat(state.Buffer.Skip(bytesRead).Take(bytesAvailable)).ToArray();
+                            state.Packet = state.Packet.Concat(state.Buffer.Skip(bytesRead).Take(bytesAvailable))
+                                .ToArray();
                             bytesRead = bytesReceived;
                             bytesAvailable = 0;
                         }

@@ -1,11 +1,7 @@
-﻿// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+﻿using System.Net.Sockets;
 
 namespace Royale_Proxy
 {
-    using System.Net.Sockets;
-
     public class State
     {
         public const int BufferSize = 2048;

@@ -1,10 +1,6 @@
-﻿// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
-
-namespace Royale_Proxy
+﻿namespace Royale_Proxy
 {
-    class Key
+    internal class Key
     {
         public static readonly byte[] OriginalPublicKey =
         {

@@ -1,10 +1,6 @@
-﻿// *******************************************************
-// Created at 27/08/2017 - Last Edit at 27/08/2017
-// *******************************************************
-
-namespace Royale_Proxy
+﻿namespace Royale_Proxy
 {
-    class Resources
+    internal class Resources
     {
         public static Definition Definition;
         public static Logger Logger;

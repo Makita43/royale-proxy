@@ -1,26 +1,22 @@
-﻿// *******************************************************
-// Created at 27/08/2017 - Last Edit at 27/08/2017
-// *******************************************************
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Royale_Proxy
 {
-    using System;
-    using System.Runtime.InteropServices;
-
-    class Program
+    internal class Program
     {
         public static string Hostname = "game.clashroyaleapp.com";
         public static int Port = 9339;
 
-        static readonly Prefixed Prefixed = new Prefixed();
+        private static readonly Prefixed Prefixed = new Prefixed();
 
         public static void Main(string[] args)
         {
             Console.Title = "Royale Proxy | 1.0.1";
 
-            IntPtr Handle = GetConsoleWindow();
+            var Handle = GetConsoleWindow();
             ShowWindow(Handle, 3);
-            SetWindowLong(Handle, -20, (int)GetWindowLong(Handle, -20) ^ 0x80000);
+            SetWindowLong(Handle, -20, (int) GetWindowLong(Handle, -20) ^ 0x80000);
             SetLayeredWindowAttributes(Handle, 0, 227, 0x2);
 
             Console.WriteLine(

@@ -1,12 +1,8 @@
-﻿// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+﻿using System;
+using System.Net.Sockets;
 
 namespace Royale_Proxy
 {
-    using System;
-    using System.Net.Sockets;
-
     public class Client : ClientCrypto
     {
         public readonly Socket Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -14,17 +10,17 @@ namespace Royale_Proxy
 
         public Client()
         {
-            this.State.ClientKey = this.clientKey;
-            this.State.ServerKey = Key.OriginalPublicKey;
+            State.ClientKey = clientKey;
+            State.ServerKey = Key.OriginalPublicKey;
 
             try
             {
-                this.State.Socket = this.Socket;
+                State.Socket = Socket;
 
-                this.Socket.Connect(Program.Hostname, Program.Port);
-                this.Socket.BeginReceive(this.State.Buffer, 0, 2048, 0, ReceiveCallback, this.State);
+                Socket.Connect(Program.Hostname, Program.Port);
+                Socket.BeginReceive(State.Buffer, 0, 2048, 0, ReceiveCallback, State);
 
-                Console.WriteLine($"Client has been linked to {this.Socket.RemoteEndPoint}.");
+                Console.WriteLine($"Client has been linked to {Socket.RemoteEndPoint}.");
             }
             catch (Exception)
             {

@@ -1,19 +1,13 @@
-﻿// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+﻿using System.IO;
 
 namespace Royale_Proxy
 {
-    using System.IO;
-
-    class Logger
+    internal class Logger
     {
         public Logger()
         {
             if (!Directory.Exists("Packets"))
-            {
                 Directory.CreateDirectory("Packets");
-            }
         }
 
         public static void Write(string value, string name, LogType type)

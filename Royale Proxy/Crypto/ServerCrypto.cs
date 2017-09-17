@@ -1,28 +1,23 @@
-// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+using System;
+using System.IO;
+using System.Linq;
+using Sodium;
 
 namespace Royale_Proxy
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Net.Sockets;
-    using Sodium;
-
     public class ServerCrypto : Protocol
     {
         public static void DecryptPacket(ServerState state, byte[] packet)
         {
             using (var reader = new Reader(packet))
             {
-                ushort ID = reader.ReadUInt16();
+                var ID = reader.ReadUInt16();
                 reader.Seek(3, SeekOrigin.Current);
-                ushort Version = reader.ReadUInt16();
+                var Version = reader.ReadUInt16();
 
                 byte[] cipherText = reader.ReadAllBytes, plainText;
 
-                string Name = Packet_Names.GetName(ID);
+                var Name = Packet_Names.GetName(ID);
 
                 switch (ID)
                 {
@@ -37,7 +32,8 @@ namespace Royale_Proxy
                     {
                         state.ClientKey = cipherText.Take(32).ToArray();
 
-                        byte[] nonce = GenericHash.Hash(state.ClientKey.Concat(state.ServerKey.PublicKey).ToArray(), null, 24);
+                        var nonce = GenericHash.Hash(state.ClientKey.Concat(state.ServerKey.PublicKey).ToArray(), null,
+                            24);
 
                         cipherText = cipherText.Skip(32).ToArray();
 
@@ -55,7 +51,8 @@ namespace Royale_Proxy
                     {
                         state.ClientState.Nonce = Utilities.Increment(Utilities.Increment(state.ClientState.Nonce));
 
-                        plainText = SecretBox.Open(new byte[16].Concat(cipherText).ToArray(), state.ClientState.Nonce, state.SharedKey);
+                        plainText = SecretBox.Open(new byte[16].Concat(cipherText).ToArray(), state.ClientState.Nonce,
+                            state.SharedKey);
 
                         break;
                     }
@@ -63,9 +60,11 @@ namespace Royale_Proxy
 
                 ClientCrypto.EncryptPacket(state.ClientState, ID, Version, plainText);
 
-                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}, CLIENT, {ID}] {Resources.Definition.Decode(new Reader(plainText), ID)}");
+                Console.WriteLine(
+                    $"[{DateTime.Now.ToLongTimeString()}, CLIENT, {ID}] {Resources.Definition.Decode(new Reader(plainText), ID)}");
 
-                Logger.Write(BitConverter.ToString(plainText).Replace("-", string.Empty), $"{ID}_{Name}", LogType.PACKET);
+                Logger.Write(BitConverter.ToString(plainText).Replace("-", string.Empty), $"{ID}_{Name}",
+                    LogType.PACKET);
             }
         }
 
@@ -85,7 +84,9 @@ namespace Royale_Proxy
 
                 case 20104:
                 {
-                    byte[] nonce = GenericHash.Hash(state.ClientState.Nonce.Concat(state.ClientKey).Concat(state.ServerKey.PublicKey).ToArray(), null, 24);
+                    var nonce = GenericHash.Hash(
+                        state.ClientState.Nonce.Concat(state.ClientKey).Concat(state.ServerKey.PublicKey).ToArray(),
+                        null, 24);
 
                     plainText = state.Nonce.Concat(state.SharedKey).Concat(plainText).ToArray();
 
@@ -102,7 +103,9 @@ namespace Royale_Proxy
                 }
             }
 
-            byte[] packet = BitConverter.GetBytes(ID).Reverse().Skip(2).Concat(BitConverter.GetBytes(cipherText.Length).Reverse().Skip(1)).Concat(BitConverter.GetBytes(version).Reverse().Skip(2)).Concat(cipherText).ToArray();
+            var packet = BitConverter.GetBytes(ID).Reverse().Skip(2)
+                .Concat(BitConverter.GetBytes(cipherText.Length).Reverse().Skip(1))
+                .Concat(BitConverter.GetBytes(version).Reverse().Skip(2)).Concat(cipherText).ToArray();
 
             state.Socket.BeginSend(packet, 0, packet.Length, 0, SendCallback, state);
         }

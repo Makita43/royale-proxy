@@ -1,19 +1,17 @@
-﻿// *******************************************************
-// Created at 27/08/2017 - Last Edit at 27/08/2017
-// *******************************************************
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+using Sodium;
 
 namespace Royale_Proxy
 {
-    using System;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Threading;
-    using Sodium;
-
     public class Server : ServerCrypto
     {
-        static readonly ManualResetEvent Wait = new ManualResetEvent(false);
-        static readonly Socket Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static readonly ManualResetEvent Wait = new ManualResetEvent(false);
+
+        private static readonly Socket Listener =
+            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         public Server()
         {
@@ -46,7 +44,7 @@ namespace Royale_Proxy
             {
                 Wait.Set();
 
-                Socket socket = (Result.AsyncState as Socket).EndAccept(Result);
+                var socket = (Result.AsyncState as Socket).EndAccept(Result);
 
                 var state = new ServerState
                 {

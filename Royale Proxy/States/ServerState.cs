@@ -1,11 +1,7 @@
-﻿// *******************************************************
-// Created at 22/08/2017
-// *******************************************************
+﻿using Sodium;
 
 namespace Royale_Proxy
 {
-    using Sodium;
-
     public class ServerState : State
     {
         public byte[] ClientKey, Nonce, SessionKey, SharedKey;
